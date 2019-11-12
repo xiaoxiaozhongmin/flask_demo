@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+ {% block body %}
+<h2>{{ project[2] }}-project</h2>
+<hr>
+<h3><span>web url </span><a href="{{ project[3]}}">{{ project[3] }}</a></h3>
+
+<h3>name/access</h3>
+<table class="table table-striped">
+  <tbody>
+  {% for users in  usersall%}
+<tr>
+ {% for u in users %}
+
+      {% if accesses[project[1]][u[0]]|string =="50" %}
+          <td>{{ u[1] }} {{  accessdict[accesses[project[1]][u[0]]|string] }}</td>
+      {% elif id|int==u[0]|int %}
+            <td>{{ u[1] }} {{  accessdict[accesses[project[1]][u[0]]|string] }}</td>
+      {% else %}
+          {% if  accesses[project[1]][id]|string=="50" or project[4]|string=='0' %}
+              <td>{{ u[1] }}
+              <select onchange="selectaccess('{{ id }}','{{ u[0] }}','{{ project[1] }}',this)">
+          {% if  accesses[project[1]][u[0]]|string=='10' %}
+      <option value="10" selected>Guest</option>
+          {% else %}
+          <option value="10">Guest</option>
+    {% endif %}
+             {% if  accesses[project[1]][u[0]]|string =='20' %}
+      <option value="20" selected>Reporter</option>
+          {% else %}
+          <option value="20">Reporter</option>
+    {% endif %}
+            {% if  accesses[project[1]][u[0]]|string =='30' %}
+      <option value="30" selected>Developer</option>
+          {% else %}
+          <option value="30">Developer</option>
+    {% endif %}
+                 {% if  accesses[project[1]][u[0]]|string =='40' %}
+      <option value="40" selected>Master</option>
+          {% else %}
+          <option value="40">Master</option>
+                     {% endif %}
+          {% if  accesses[project[1]][u[0]]|string =='0' %}
+      <option value="0" selected>Undefined</option>
+               {% else %}
+          <option value="0">Undefined</option>
+               {% endif %}
+              </select>
+              </td>
+         {% else %}
+              <td>{{ u[1] }} {{ accessdict[accesses[project[1]][u[0]]|string] }}</td>
+        {% endif %}
+      {% endif %}
+
+  {% endfor %}
+</tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+</body>
+{% endblock %}
+{% block script %}
+ <script>
+
+         function selectaccess(id,uid,pid,access){
+       console.log(id,uid,pid,access)
+       var index=access.selectedIndex;
+       console.log(index)
+       console.log(access.options[index].value)
+       a=access.options[index].value;
+          $.ajax({
+                url: "/access/",
+                data: {
+                    "id": id,
+                    "uid": uid,
+                    "pid":pid,
+                    "access":a
+                },
+                type: "post",
+                datatype: "json",
+                success: function (data) {
+                 console.log(data)
+                    if(data=='0'){
+                     alert("设置失败")
+                    } if(data=='1'){
+                     alert("设置成功")
+                    }
+                },
+                error: function (err) {
+                       alert("设置失败，网络错误")
+                    console.log("错误信息：" + err);
+                }
+            });
+   }
+
+    </script>
+{% endblock %}

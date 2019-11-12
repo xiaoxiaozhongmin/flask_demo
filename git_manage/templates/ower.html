@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+ {% block body %}
+<h2>{{ label[0] }}</h2>
+<hr>
+
+
+<table class="table table-striped">
+  <tbody>
+  {% for users in allusers %}
+<tr>
+{% for use in users %}
+    <td><a href="http://127.0.0.1:5000/{{ label[0]  }}/{{ id }}/{{ use[0] }}/{{ use[1] }}">{{ use[1] }}</a></td>
+    {% endfor %}
+</tr>
+  {% endfor %}
+  </tbody>
+</table>
+</body>
+{% endblock %}
+{% block script %}
+ <script>
+
+    </script>
+{% endblock %}
+

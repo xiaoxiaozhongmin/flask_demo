@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Title</title>
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <style>
+        .btnLogin{
+	/*宽度，高度，背景色，边框倒角，取消边框，文字大小，文字颜色*/
+	width:145px;
+	height:38px;
+	background:#64a131;
+	border:none;
+	font-size:18px;
+	color:#fff;
+      }
+.form-control{
+	/*宽度，高度，边框，取消轮廓，左右内边距，box-sizing*/
+	width:300px;
+	height:40px;
+	border:1px solid #ccc;
+	outline:none;
+	box-sizing:border-box;
+	/*文字大小，文本颜色*/
+	font-size:16px;
+	color:#555;
+}
+
+        body{ text-align:left}
+
+table {
+    border-collapse: collapse;
+}
+table, td, th {
+    border: 1px solid black;
+   height: auto;}
+
+
+
+#showtimes{
+      width:auto;
+      margin-left:1px;
+      font-family:Arial, Helvetica, sans-serif;
+      font-size:17px;
+      color:red;
+      line-height:35px;
+}
+a {font-size:16px;color : blue}
+a:link {text-decoration:none;}
+a:active {color: red;}
+a:visited {color:purple;text-decoration:none;}
+a:hover {color: red; text-decoration:underline;}
+</style>
+           <script src="/static/js/jquery-1.11.3.js"></script>
+           <script src="/static/js/jquery.cookie.js"></script>
+           <script src="/static/js/common.js"></script>
+             <script src="/static/js/bootstrap.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+     &nbsp;&nbsp; <a class="navbar-brand" href="http://127.0.0.1:5000/{{ id }}">Home</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="http://127.0.0.1:5000/users/{{ id }}">users</a></li>
+        <li><a href="http://127.0.0.1:5000/groups/{{ id }}">groups</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">工具 <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+              <li><a href="http://127.0.0.1:5000/create/userProject/{{ id }}">创建user项目</a></li>
+            <li><a href="http://127.0.0.1:5000/create/groupProject/{{ id }}">创建group项目</a></li>
+          </ul>
+        </li>
+      </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> 退出</a></li>
+        </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+ {% block body %}
+    {% endblock %}
+
+</body>
+<script>
+
+</script>
+ {% block script %}
+    {% endblock %}
+</html>

@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+ {% block body %}
+  <div class="form-group">
+    <label for="firstname" class="col-sm-3 control-label">项目名称</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="projectname" placeholder="请输入项目名称">
+    </div>
+  </div>
+
+     <div class="form-group">
+    <label for="firstname" class="col-sm-3 control-label">group名称</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="groupname" placeholder="请输入group名称">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="lastname" class="col-sm-3 control-label">webhook url</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="webhookurl" placeholder="请输入webhook url">
+    </div>
+  </div>
+           <div class="form-group">
+    <label for="lastname" class="col-sm-3 control-label">description</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="description" placeholder="简短的项目说明">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-3 col-sm-10">
+      <button onclick="createproject({{ id }})">创建</button>
+    </div>
+  </div>
+
+
+{% endblock %}
+{% block script %}
+    <script>
+    function createproject(id) {
+        console.log(id);
+         var pname=document.getElementById('projectname').value;
+         var webu=document.getElementById('webhookurl').value;
+         var gname=document.getElementById('groupname').value;
+          var description=document.getElementById('description').value;
+         console.log(pname,webu,gname,description)
+                  $.ajax({
+                url: "/createGroupProject/",
+                data: {
+                    "id": id,
+                    "pname": pname,
+                    "webw":webu,
+                    "gname":gname,
+                    "description":description
+                },
+                type: "post",
+                datatype: "json",
+                success: function (data) {
+                 console.log(data)
+                     if(data=='0'){
+                     alert("创建项目失败")
+                    }
+                     if(data=='1'){
+                     alert("创建项目成功")
+                    }
+                      if(data=='2'){
+                     alert("创建项目成功，加入webhook失败")
+                    }
+                      if(data=='3'){
+                     alert("创建项目成功，加入webhook成功")
+                    }
+                      if(data=='5'){
+                     alert("创建项目失败，没有此group")
+                    }
+                },
+                error: function (err) {
+                       alert("设置失败，网络错误")
+                    console.log("错误信息：" + err);
+                }
+            });
+    }
+
+    </script>
+{% endblock %}

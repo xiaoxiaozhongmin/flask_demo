@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+ {% block body %}
+<h2>{{ groupname }}-group</h2>
+<hr>
+
+
+<h3>name/access</h3>
+<table class="table table-striped">
+  <tbody>
+  {% for users in  usersall%}
+<tr>
+ {% for u in users %}
+
+      {% if u['access_level']|string =="50" %}
+          <td>{{ u['username'] }} {{  accessdict[u['access_level']|string] }}</td>
+      {% else %}
+          {% if groupaccess|string=="50" %}
+              <td>{{ u['username'] }}
+              <select onchange="selectaccess('{{ id }}','{{ u['id'] }}','{{ groupid }}',this)">
+          {% if  u['access_level']|string=='10' %}
+      <option value="10" selected>Guest</option>
+          {% else %}
+          <option value="10">Guest</option>
+    {% endif %}
+             {% if  u['access_level']|string =='20' %}
+      <option value="20" selected>Reporter</option>
+          {% else %}
+          <option value="20">Reporter</option>
+    {% endif %}
+            {% if  u['access_level']|string =='30' %}
+      <option value="30" selected>Developer</option>
+          {% else %}
+          <option value="30">Developer</option>
+    {% endif %}
+                 {% if  u['access_level']|string =='40' %}
+      <option value="40" selected>Master</option>
+          {% else %}
+          <option value="40">Master</option>
+                     {% endif %}
+          {% if  u['access_level']|string =='0' %}
+      <option value="0" selected>Undefined</option>
+               {% else %}
+          <option value="0">Undefined</option>
+               {% endif %}
+              </select>
+              </td>
+              {% else %}
+               <td>{{ u['username'] }} {{  accessdict[u['access_level']|string] }}</td>
+        {% endif %}
+
+      {% endif %}
+
+  {% endfor %}
+</tr>
+  {% endfor %}
+
+  </tbody>
+</table>
+
+{% endblock %}
+{% block script %}
+ <script>
+    function selectaccess(id,uid,gid,access){
+         var val = $(access).val();
+         console.log(val)
+       console.log(id,uid,gid,access)
+       var index=access.selectedIndex;
+       console.log(index)
+       console.log(access.options[index].value)
+       a=access.options[index].value;
+          $.ajax({
+                url: "/access/group/",
+                data: {
+                    "id": id,
+                    "uid": uid,
+                    "gid":gid,
+                    "access":a
+                },
+                type: "post",
+                datatype: "json",
+                success: function (data) {
+                 console.log(data)
+                    if(data=='0'){
+                     alert("设置失败")
+                    }if(data=="1"){
+                        alert("设置成功")
+                    }
+                },
+                error: function (err) {
+                       alert("设置失败，网络错误")
+                    console.log("错误信息：" + err);
+                }
+            });
+   }
+
+    </script>
+{% endblock %}
+

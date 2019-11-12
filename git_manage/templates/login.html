@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>git管理</title>
+    <style type="text/css">　　
+.btnLogin{
+	/*宽度，高度，背景色，边框倒角，取消边框，文字大小，文字颜色*/
+	width:145px;
+	height:38px;
+	background:#64a131;
+	border-radius:5px;
+	border:none;
+	font-size:18px;
+	color:#fff;
+      }
+.form-control{
+	/*宽度，高度，边框，取消轮廓，左右内边距，box-sizing*/
+	width:300px;
+	height:40px;
+	border:1px solid #ccc;
+	outline:none;
+	padding:0px 12px;
+	box-sizing:border-box;
+	/*文字大小，文本颜色*/
+	font-size:16px;
+	color:#555;
+}
+        .divcss5{margin: 5px;
+                  }
+        body{ text-align:center}
+</style>　
+</head>
+<hr>
+<body>
+ <form action = "http://localhost:5000/" method = "POST">
+         <p>id <input type = "text" name = "id" /></p>
+         <p>token <input type = "password" name = "Pwd" /></p>
+         <p>Continue last time browsing<input type="checkbox" name = "Pwd1"></p>
+     <p><input type = "submit" value = "submit" />
+ </p>
+     <div>{{ info }}</div>
+      </form>
+{#<form method="POST" action="/">#}
+{#{{ form.csrf_token }}#}
+{#{{ form.id.label }} {{ form.id(size=40) }}#}
+{#<div>{{ form.token.label }} {{ form.token(size=40) }}</div>#}
+{#<div><input type="submit" value="提交"></div>#}
+{#    <div>></div>#}
+{#</form>#}
+</body>
+</html>
